@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Library Locator</title>
+
+    <style>
+        p,
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        p {
+            font-size: 1.5em;
+            line-height: 1.5em;
+            margin-left: 24px;
+        }
+        
+        pre {
+            font-size: 2em;
+        }
+        
+        body {
+            background-color: #62a2d2;
+        }
+        
+    </style>
+</head>
+
+<body>
+    
+    <h1>Bus Tracker</h1>
+   <p></p>
+
+    <p>Select options from the three dropdown menus and find a bus near you!</p>
+
+
+    <button id="btn">Find Buses</button>
+
+    <div id="results">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+
+            $(document).keypress(function(e) {
+                if (e.which == 13) {
+                    $("#btn").click();
+                }
+            });
+                        var inspectionsBaseURL = 'https://data.cityofchicago.org/resource/psqp-6rmg.json';
+                        // optional filters we're appending - date range and zip
+                        var filters = '?zip=';
+                        // full URL
+                        var url = inspectionsBaseURL + filters;
+                            console.log(txtZip);
+                            console.log(url);
+                        
+                        $("#btn").on("click", function() {
+                         var input = $("#txtZip").val();
+                        // each time we search, we need to clear the results
+                        $("#results").html("");
+                        
+                        // get the input zip number
+                        //   and append to url in getJSON call
+                        var yourZip = filters + input;
+                   
+                        var urlWithParams = inspectionsBaseURL + yourZip;
+                        console.log(urlWithParams);  // verify that it's being created correctly
+                   
+                        // jQuery command to retrieve json data
+                        
+                        $.getJSON(url+input)       // append the zip
+                            .done (function (data) {    // execute this function when getJSON is done
+                                
+                                //console.log(data);
+                                
+                                var numRecords = data.length;  // the length of the array
+                                
+                                // notify of number of records
+                                var message = 
+                                    "<p>" +
+                                    "Records found: "
+                                    + numRecords
+                                    + "</p>"
+                                
+                                $("#results").append(message);
+                                
+                                
+                                // only loop records if count > 0
+                                if (numRecords > 0) {
+                                    // loop through the records
+                                    $.each (data , 
+                                        function (index, value) {
+                                            // append content to the body 
+                                            var html=
+                                                  "<hr>" 
+                                                + "<br>" 
+                                                + "Library: " 
+                                                + value.name_ 
+                                                + "<br>" 
+                                                + "Address: " 
+                                                +value.address 
+                                                +"<br>" 
+                                                +"Phone #: " 
+                                                +value.phone 
+                                                +"<br>" 
+                                                +"Hours of Operation: " 
+                                                +value.hours_of_operation 
+                                                +"</br>" 
+                                                +"<a href>"
+                                                +"https://data.cityofchicago.org/resource/wa2i-tm5d.json"
+                                                +"</a>"
+                                                +"</hr>" 
+                                                +"</div>";
+
+                                                
+                                           
+                                           
+                                            $("#results").append(html);
+                                           
+                                    
+                                        
+                                        }  // end of function
+                                    
+                                    ); // end of each loop                            
+                                
+                                }   // end of if statement
+        
+                            });  // end of getJSON
+                    
+                    });  // end of button click event
+                
+                 // end of jQuery wrapper
+</script>
+</body>
+
+</html>

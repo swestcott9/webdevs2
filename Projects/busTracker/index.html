@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LT Bus Tracker</title>
+
+    <style>
+        p,
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        p {
+            font-size: 1.5em;
+            line-height: 1.5em;
+            margin-left: 24px;
+        }
+        
+        pre {
+            font-size: 2em;
+        }
+        
+        body {
+            background-color: #48b43f;
+        }
+        h1{
+            font-family: comic sans ms;
+        }
+        #form{
+            border-style: solid;
+            border-radius: 20px;
+        }
+        hr{
+            border-width: medium;
+            border-color: green;
+        }
+        #Northbound49, #Southbound49,#Eastbound152, #Westbound152{
+            border-radius:25px;
+            border-style:solid;
+            border-width: 1px;
+            border-color:black;
+            font-size:16pt;
+            min-height:100px;
+            padding:10px;
+            margin:10px;
+            background-color:white;
+        }
+        
+    </style>
+</head>
+    <body>
+    <h1> CTA Bus Tracker: Lane Tech Edition</h1>
+    
+    <!-- div for instructions and form -->
+    <div id="form">
+        <p>
+            Find your bus fast.
+       <select id="busDirection">
+           <option id="westernNorthbound" data-rt="49" data-stpid="8417">Western Northbound</option>
+            <option id="westernSouthbound" data-rt="49" data-stpid="8195">Western Southbound</option>
+           <option id="addisonEastbound" data-rt="152" data-stpid="12527">Addison Eastbound</option>
+           <option id="addisonWestbound" data-rt="152" data-stpid="12569">Addison Westbound</option>
+       </select>
+        <button type="button" id="btnSearch" >Find It</button>
+        <img src="http://www.ltinternet.net//images_template1/AlbertGLaneTechHSJROTCSLI.jpg" width="100px" height="100px">
+        <img src="http://www.clipartbest.com/cliparts/Kij/XMX/KijXMXx4T.gif" width="50px" height="50px">
+        <img src="http://www.cta.int/images/CTA-logo-single.png" width="100px" height= "100px">
+    </div>
+    
+ <div id= "Northbound49">Western Northbound</div>
+ <div id="Southbound49">Western Southbound</div>
+ <div id="Eastbound152">Addison Eastbound</div>
+ <div id="Westbound152">Addison Westbound</div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+      $("#btnSearch").on("click", function() {
+           $("#results").html("");
+          console.log("bacon");
+                         var input = $("#busDirection").val();
+                         //var filters= ?stpid=
+                //var yourBus= input+filters
+     
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "Fu37zrQVGgjjj4KuiuWr4Dvzy",
+                      "rt" : "49,152",
+                      "stpid":"8417,8195,12527,12569",
+                      "format":"json",
+              }
+            }).done (function (data) {
+              console.log(data);
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#"+v.rtdir+v.rt).append("<hr>"+ "<strong>"+"Route Name: " + "</strong>"+ v.stpnm +"<br>"
+                  +"<strong>" +"Direction: " +"</strong>" +v.rtdir+ "<br>"
+                  +"<strong>"+ "Destination: "+"</strong>" + v.des+ "<br>"
+                  +"<strong>"+ "Time: " + "</strong>" +v.tmstmp +"<br>"
+                  + "<strong>"+ "Minutes Until Arrival: " + "</strong>" + v.prdctdn+"<br>"
+                  +"<strong>" + "Estimated Arrival: " + "</strong>" +v.prdtm+"</hr>");
+                
+              });
+             
+             //$("#results").append(yourData)
+             //console.log(data);
+            });
+        });
+  
+</script>
+    </body>
+    
