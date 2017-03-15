@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style>
+        p,
+        h1 {
+            font-family: helvetica;
+        }
+        
+        p {
+            font-size: 1.5em;
+            line-height: 1.5em;
+            margin-left: 24px;
+        }
+        
+        pre {
+            font-size: 2em;
+        }
+        body{
+            background-color:#3AE8C8;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Find mah car NOW</h1>
+    <h3>The official towing facility finder of Chicago</h3>
+    <h4>Just enter your license plate and we'll find where your car got towed to.</h4>
+    <h6>Note: You must enter capital letters</h6>
+    <div id="form">
+    <input type="text" id="txtPlate" placeholder="Enter license plate"></input>
+    </div>
+        <button id="run">Find my Car</button>
+
+    <div id="results">
+        
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+
+        /*
+                    This script retrieves towing data for zip 60645
+                    for the 4th quarter of 2016 from the 
+                    City of Chicago Data Portal
+                    
+                    It stores the returned results in a variable named towing.
+                    
+                    This script doesn't update the DOM.
+                
+                
+                */
+        //  variable to hold the returned data
+        var yourCar;
+
+        // base URL to the pothole data
+        var BaseURL = 'https://data.cityofchicago.org/resource/rp42-fxjt.json';
+
+        // optional filters we're appending - date range and zip
+        var filters = '?plate=';
+
+        // full URL
+        var url = BaseURL + filters;
+
+        console.log(url);
+
+        $(
+             $("#run").click(function(){
+                    // jQuery command to retrieve json data
+        
+                    var input = $("#txtPlate").val();
+        
+                    $.getJSON(url + input)
+                    .done(function(data) {
+                        console.log(data);
+        
+                        //loop through the records
+                        $.each(data,
+                            function(index, value) {
+                                //append content to the iFrame
+                                var html = "<div>" +
+                                   "<br>"+ 
+                                   "<p>"+
+                                   "Address:" +
+                                   "</p>" +
+                                    value.towed_to_address +
+                                    "</br>" +
+                                    +"<br>"+
+                                    "<p>"+
+                                    "Phone:"
+                                    "</p>"+
+                                    value.tow_facility_phone +
+                                    "</br>"+
+                                    "</div>";
+        
+                             $("#results").append(html);
+                        });
+        
+                                console.log(data);
+                            }
+                        );
+                    })
+
+        )
+    </script>
+</body>
+
+</html>
