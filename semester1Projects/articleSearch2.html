@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Find Me Some News</title>
+        <style>
+            p, h1 {font-family: helvetica;}
+            p {font-size:1.5em;line-height:1.5em; margin-left: 24px;}
+            pre {font-size: 2em;}
+            
+            div {
+                background-color:lightgray; 
+                border: 1px solid black; 
+                border-radius: 6px;
+                min-height:75px;
+                padding:15px;
+            }
+
+        </style>
+    </head>
+    <body>
+    <h1> Search the NYT Article Database!!</h1>
+    
+    <!-- div for instructions and form -->
+    <div id="form">
+        <p>
+            Search it, find it.
+        
+        <input id="txtQuery" type="text" placeholder="Search it"></input>
+        <button type="button" id="btnSearch" >Find It</button>
+    </div>
+    
+    <!-- a div to store the results -->
+    <div id="results">
+        
+        
+        
+    </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    var nytData;
+   $(function() {
+     
+     var baseUrl= "https://api.nytimes.com/svc/search/v2/articlesearch.json"
+     //console.log(url)
+     var url=baseUrl + "?api-key=" + "5f7c9b1d35ca4906b0870fd59c9e8fa2"
+     //console.log(url);
+   
+   
+   $("#btnSearch").on("click", function(){
+       
+       $("#results").html("");
+       
+       var searchTerm= $("#txtQuery").val();
+       url=url+ "&sort=newest&q=" + searchTerm;
+       console.log(url);
+       
+     $.getJSON(url)
+     .done(function(data){
+      
+       //console.log(data);
+       nytData=data;
+       $.each(data.response.docs, function(index,value){
+         //console.log(value.snippet);
+         
+         $("#results").append(
+             "<h2>"
+             +(value.headline.print_headline || value.headline.main || "No headlines found")
+             );
+                 +"<h2>"
+             +"<p>"
+             +"<br>"
+             +value.pub_date
+             +"<br>"
+             +value.print_headline
+             +"<br>"
+             +value.original
+             +"<br>"
+             +value.lead_paragraph
+             +"</p>"
+             +
+             $("#results").append("<a href ='" + value.web_url + "'>view on NYT</a>")
+             $("#results").append("<p>" + value.lead_paragraph+"</p>");
+             $("#results").append("<p>" + value.pub_date + "</p>");
+             $("#results").append("<p>" + value.original + "</p>");
+        
+       });
+     })
+     .fail(function(){});
+     
+   });
+   });
+        
+    </script>
+    </body>
+</html>
