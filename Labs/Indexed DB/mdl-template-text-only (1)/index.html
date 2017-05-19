@@ -1,0 +1,368 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Bus Tracker</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="http://static.hudl.com/users/prod/1277467_56237f403e5b49f6a84b240e99c9e9cd.jpg">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="http://static.hudl.com/users/prod/1277467_56237f403e5b49f6a84b240e99c9e9cd.jpg">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="http://static.hudl.com/users/prod/1277467_56237f403e5b49f6a84b240e99c9e9cd.jpg">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+          p,
+        h1 {
+            font-family: 'Arial', sans-serif;
+        }
+        
+        p {
+            font-size: 1.5em;
+            line-height: 1.5em;
+            margin-left: 24px;
+        }
+        
+        pre {
+            font-size: 2em;
+        }
+        
+        body {
+            background-color: black;
+        }
+        h1{
+            font-family: comic sans ms;
+        }
+        hr{
+            border-width: medium;
+            border-color: green;
+        }
+        #Northbound49, #Southbound49,#Eastbound152, #Westbound152{
+            border-radius:25px;
+            border-style:solid;
+            border-width: 1px;
+            border-color:black;
+            font-size:16pt;
+            min-height:100px;
+            padding:10px;
+            margin:10px;
+            background-color:white;
+        }
+        
+    </style>
+  </head>
+  <!--PAGE 1-->
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>CTA Bus Tracker... but better</h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+          <a href="#welcome" class="mdl-layout__tab is-active">Welcome</a>
+          <a href="#addRoute" class="mdl-layout__tab">Add Route</a>
+          <a href="#manageRoutes" class="mdl-layout__tab">Manage Routes</a>
+          <a href="#busTimes" class="mdl-layout__tab">Bus Times</a>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel is-active" id="welcome">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
+            </header>
+            <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-card__supporting-text">
+                <h4>At Lane? Find your bus fast.</h4>
+                <img src="https://www.garmentdeli.com/lanetechptso/sites/default/files/dynamic/garment-design-image-view-e4eadd91d802e3e284b7aeed90270c2c.png" width="100px" height="100px">
+        <img src="http://www.clipartbest.com/cliparts/Kij/XMX/KijXMXx4T.gif" width="50px" height="50px">
+        <img src="http://www.ctagifts.com/sites/ctagifts.com/files/imagecache/product/products/28776_skuimg.jpg" width="100px" height= "100px">
+                 <button type="button" id="btnSearch" >Find It</button>
+              </div>
+            </div>
+          </section>
+          
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">Results</h4>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone" id= "Northbound49">
+                  <h5>Western Northbound</h5>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone" id="Southbound49">
+                  <h5>Western Southbound</h5>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone" id="Eastbound152">
+                  <h5>Addison Eastbound</h5>
+                </div>
+                   <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone" id="Westbound152">
+                  <h5>Addison Westbound</h5>
+                </div>
+                <!--Script to display bus routes-->
+                <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+      $("#btnSearch").on("click", function() {
+           $("#results").html("");
+          console.log("bacon");
+                         var input = $("#busDirection").val();
+                         //var filters= ?stpid=
+                //var yourBus= input+filters
+     
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "ihGT9PvpgGAif5MSxvv2N9i4e",
+                      "rt" : "49,152",
+                      "stpid":"8417,8195,12527,12569",
+                      "format":"json",
+              }
+            }).done (function (data) {
+              console.log(data);
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#"+v.rtdir+v.rt).append("<hr>"+ "<strong>"+"Route Name: " + "</strong>"+ v.stpnm +"<br>"
+                  +"<strong>" +"<br>"+"Direction: " +"</strong>" +v.rtdir+ "<br>"
+                  +"<strong>"+ "<br>"+"Destination: "+"</strong>" + v.des+ "<br>"
+                  +"<strong>"+"<br>"+ "Time: " + "</strong>" +v.tmstmp +"<br>"
+                  + "<strong>"+"<br>"+ "Minutes Until Arrival: " + "</strong>" + v.prdctdn+"<br>"
+                  +"<strong>" + "<br>"+"Estimated Arrival: " + "</strong>" +v.prdtm+"</hr>");
+                
+              });
+             
+             //$("#results").append(yourData)
+             //console.log(data);
+            });
+        });
+  
+</script>
+</section>
+</div>
+
+<!---PAGE 2-->
+        <div class="mdl-layout__tab-panel" id="addRoute">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Add a Route</h4>
+              Not at Lane? Add the route you need to get to your destination.
+            </div>
+          </section>
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">Add</h4>
+  <!--This dropdown is used to select the route the user wants to add-->
+   <select id="routes"></select>
+ 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+        $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getroutes?key=ihGT9PvpgGAif5MSxvv2N9i4e";
+          
+          //ajax call to get the routes
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "ihGT9PvpgGAif5MSxvv2N9i4e",
+                      "format":"json"}
+            }).done (function (data) {
+             console.log(data);
+             
+              // load options into a select controle
+             $.each(data["bustime-response"]["routes"], function(i,v) {
+                  var option = $("<option>");   // creates an option element
+                  option.attr("value", v.rt );   // set value
+                  option.text(v.rt + " - " + v.rtnm);  // set text
+                  $("#routes").append(option);   // add option to select control
+                
+              });
+        });
+        });
+                    
+            //   change event handler on the route control
+            //	  remove any options already in the directions control 
+            //	  ajax call to get directions for the selected route
+            //		when done, append options to the directions select control
+
+          //this dropdown is used to display the directions of the route the user selected.
+            $("#routes").on("change", function() {
+              
+                $("#directions option").remove();
+              
+                var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getdirections";
+                
+                
+                $.ajax({
+                    url: apiPassThruUrl,
+                    dataType: "json",
+                    method: 'GET',
+                    data: {"apiEndpoint": apiEndpoint,
+                            "key" : "ihGT9PvpgGAif5MSxvv2N9i4e",
+                            "format":"json",
+                            "rt": $("#routes").val()
+                    }
+                  }).done (function (data) {
+                    console.log(data);
+                    // load options into a select controle
+                   $.each(data["bustime-response"]["directions"], function(i,v) {
+                        var option = $("<option>");   // creates an option element
+                        option.attr("value", v.dir);   // set value
+                        option.text(v.dir);  // set text
+                        $("#directions").append(option);  
+      
+                  });
+                   
+              });              
+              
+            });
+                      //this dropdown is used to display the available stops of the route the user selected.
+            $("#routes").on("change", function() {
+              
+                $("#directions option").remove();
+              
+                var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getstops";
+                
+                
+                $.ajax({
+                    url: apiPassThruUrl,
+                    dataType: "json",
+                    method: 'GET',
+                    data: {"apiEndpoint": apiEndpoint,
+                            "key" : "ihGT9PvpgGAif5MSxvv2N9i4e",
+                            "format":"json",
+                            "rt": $("#routes").val()
+                            //"dir":$("#directions option").val()
+                    }
+                  }).done (function (data) {
+                    console.log(data);
+                    // load options into a select controle
+                   $.each(data["bustime-response"]["stops"], function(i,v) {
+                        var option = $("<option>");   // creates an option element
+                        option.attr("value", v.stpid);   // set value
+                        option.text(v.stpid);  // set text
+                        $("#stops").append(option);  
+      
+                  });
+                   
+              });              
+              
+            });
+</script>
+        </section>
+        </div>
+       
+        <!--PAGE 3-->
+         <div class="mdl-layout__tab-panel" id="manageRoutes">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Manage Routes</h4>
+              A collection of the routes you added is saved to this page. Manage or delete your routes here.
+            </div>
+          </section>
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">My Routes</h4>
+     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+      <script>
+          //
+          // Define your database
+          //
+                var db = new Dexie("savedRoutes");
+      db.version(1).stores({
+        stops: '++id,rt,rtnm,dir,stpid,stpnm'
+      });
+      ////////////$("#routes").val().append("savedRoutes");
+      </script>
+          </section>
+          </div>
+        <!--PAGE 4-->
+ <div class="mdl-layout__tab-panel" id="busTimes">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <h4>Bus Times</h4>
+              Get time estimates for the buses arriving at your saved stops here.
+            </div>
+          </section>
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">Approaching Buses</h4>
+          </section>
+          </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>

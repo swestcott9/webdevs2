@@ -1,0 +1,174 @@
+<html>
+
+<head>
+  <!-- Material Design Lite -->
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <!-- Material Design icon font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    $(function() {
+      //  variable to hold the returned data
+      var inspections;
+
+      // endpoint to the employee data
+      //STEP 2
+      var endpoint = 'https://data.cityofchicago.org/resource/tt4n-kn4t.json';
+
+      //filters we're appending
+      var filters = '?department=CITY COUNCIL';
+
+      // full URL
+      var url = endpoint + filters;
+
+      console.log(url);
+      //STEP 3
+      var db = new Dexie("employeeDB");
+      db.version(1).stores({
+        employees: '++id,name,department,title,salary'
+      });
+
+      db.employees.count().then(function(count) {
+        console.log(count);
+        //only if the table is empty do we need to grab the city employee data
+       //STEP 4
+        if (count == 0) {
+          $.getJSON(url)
+            .done(function(data) {
+              $.each(data, function(i, v) { //its a mess I'm sorry... I kind of put things wherever but at least I labeled the steps
+                db.employees.add({
+                  name: v.name,
+                  title: v.job_titles,
+                  salary: v.employee_annual_salary,
+                  department: v.department,
+                });
+            });
+        });
+        }  
+      });
+
+
+        //STEP 7
+        $("#search").on("click", function(displayEmployees) {
+          console.log("BACON");
+          //STEP 8
+          $("#results").html("");
+          var searchTerm = $("#inputName").val();
+          db.employees.where("name")
+            .startsWithIgnoreCase(searchTerm)
+            .each(function(employee) {
+              //console.log(employee.name);
+              var html = "<strong>" + employee.name + "</strong>"
+                html += "<br>" + employee.department + "<br><br>"
+                $("#results").append(html);
+            });
+
+                  //STEP 12
+        $("#addEmployee").click(function(addEmployees) {
+          console.log("NUTELLA");
+          db.employees.each(function() {
+            db.employees.add({
+              name: v.name,
+              title: v.job_titles,
+              salary: v.employee_annual_salary,
+              department: v.department,
+            });
+              console.log(v.name)
+                //STEP 5
+
+                //loop through the records
+                $.each(data,
+                  function(index, value) {
+                    //append content to the body
+                    var html = "<div>" +
+
+                      "<hr>" +
+                      "<p>" +
+                      value.name +
+                      "</p>" +
+                      "<p>" +
+                      value.department +
+                      "</p>" +
+                      "</hr>" +
+                      "</div>";
+
+
+                    $("body").append(html);
+
+                    console.log(data);
+                  }
+                );
+              });
+            });
+          });
+          
+    });    
+      $("#addEmployee").click(function(){
+        console.log("BACON")
+        db.employees.add({
+          name: $("#name").val(),
+          title: $("#title").val()
+        });
+      });
+    
+  </script>
+  <!-- Simple header with fixed tabs. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+                mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Chicago City Council Employees</span>
+      </div>
+      <!-- Tabs -->
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+        <a href="#display" class="mdl-layout__tab is-active">Search Employees</a>
+        <a href="#fixed-tab-2" class="mdl-layout__tab">Add Employees</a>
+        <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Welcome</span>
+    </div>
+    <main class="mdl-layout__content">
+      <section class="mdl-layout__tab-panel is-active" id="display">
+        <div id="page1" class="page-content">
+          <!-- Simple Textfield -->
+          <form action="#">
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="text" id="inputName">
+              <label class="mdl-textfield__label" for="inputName">Text...</label>
+            </div>
+          </form>
+          <button id="search">Search</button>
+          <div id="results"></div>
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <div class="page-content">
+          <!--STEP 11-->
+          <textarea id="name" class="input"></textarea>
+          <textarea id="title" class="input"></textarea>
+          <textarea id="Input3" class="input"></textarea>
+          <textarea id="Input4" class="input"></textarea>
+          <button id="addEmployee">Add Employee</button>
+
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+        <div class="page-content">
+          <!-- Your content goes here -->
+        </div>
+      </section>
+      
+    </main>
+  </div>
+</body>
+
+</html>
