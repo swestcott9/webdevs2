@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Pusheen!</title>
+<style>
+    canvas {
+      border: #333 10px solid;
+    }
+  </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="650" height="500"></canvas>
+
+
+    <script>
+        var canvas = document.querySelector("#myCanvas");
+        var context = canvas.getContext("2d");
+        var myImage = new Image();
+        myImage.src = "http://cdn.playbuzz.com/cdn/0eb198ec-6e36-4701-8f80-70b7188f5e10/a49aea40-27e9-43d8-bbde-19c4af035b60.jpg";
+        myImage.addEventListener("load", loadImage, false);
+
+        function loadImage(e) {
+            context.drawImage(myImage, 0, 0);
+        }
+          context.clearRect(0, 0, canvas.width, canvas.height);
+window.addEventListener("keydown", moveSomething, false);
+
+ var deltaX = 0;
+var deltaY = 0;
+function moveSomething(e) {
+    switch(e.keyCode) {
+        case 37:
+            deltaX -= 2;
+            break;
+        case 38:
+            deltaY-=2;
+            break;
+        case 39:
+            deltaX+=2;
+            break;
+        case 40:
+            deltaY+=2;
+            break;  
+    }   
+}    
+    </script>
+</body>
+
+</html>

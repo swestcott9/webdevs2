@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Pusheen!</title>
+  <style>
+    #gameCanvas {
+      border: solid black;
+    }
+    
+    img {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Image to use:</p>
+  <img id="background" width="297" height="216" src="http://www.clker.com/cliparts/Y/f/N/P/G/E/fresh-grass-and-sky-md.png" alt="The Scream">
+  <img id="pusheen" width="100px" src="http://cdn.jasnor.com.au/media/catalog/category/pusheen_the_cat.png">
+  <img id="dog" width="100px" src="https://vignette4.wikia.nocookie.net/pusheenthecat/images/1/1a/Battle_Dog.png/revision/latest?cb=20140119025914">
+  <img id="cheetos" width="100px" src="http://www.fritolay.com/images/default-source/blue-bag-image/cheetos-crunchy-flamin-hot.tmb-.png?sfvrsn=1">
+  <button id="pause" src="https://d30y9cdsu7xlg0.cloudfront.net/png/122888-200.png"></button>
+  <p>Canvas:</p>
+  <canvas id="gameCanvas" width="800px" height="600px">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+
+  <script>
+    var livesRemaining = 3;
+    var score = 0;
+    var level = 1;
+    var paused = false;
+    var player = {
+      x: 0,
+      y: 0,
+      costume: "",
+      speed: 1
+    };
+    var harm = {
+      x: 0,
+      y: 0,
+      costume: "",
+      speed: 1
+    };
+    var benefit = {
+      x: 0,
+      y: 0,
+      costume: ""
+    };
+
+    var x = 10;
+    var y = 500;
+    var xHarmPos = 550;
+    var yHarmPos = 400;
+    var xBenefitPos = "500"
+    var yBenefitPos = "220"
+    var c = document.getElementById("gameCanvas");
+    var ctx = c.getContext("2d");
+    /*
+      
+      main animation loop
+      
+    */
+    function animate() {
+      console.log("animate");
+      // update harm and benefit y coordinates
+
+      // draw background
+      //window.onload = function() {
+
+      var background = document.getElementById("background");
+      ctx.drawImage(background, 10, 10, 800, 600);
+      //  draw player
+      var pusheen = document.getElementById("pusheen");
+      ctx.drawImage(pusheen, x, y, 120, 85);
+
+      // draw harm 
+      var dog = document.getElementById("dog");
+      ctx.drawImage(dog, xHarmPos, yHarmPos, 100, 85);
+
+      // check for and handle edge condition
+      // check for and handle harm collision
+
+      // draw benefit
+      var cheetos = document.getElementById("cheetos");
+      ctx.drawImage(cheetos, xBenefitPos, yBenefitPos, 80, 100);
+      
+      //};
+      // update harm position
+      // function harmUpdate() {
+      //   context.clearRect(0, 0, canvas.width, canvas.height);
+      // if (xHarmPos < 551) {
+      //   xHarmPos = -100;
+      // }
+      xHarmPos -= 2;
+      if (xHarmPos < 0) {
+        xHarmPos = gameCanvas.width;
+      }
+      xBenefitPos -= 3;
+      if (xBenefitPos < 0) {
+        xBenefitPos = gameCanvas.width;
+      }
+      //requestAnimationFrame(harmUpdate);
+      //}
+
+      //update benefit position
+      function benefitUpdate() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        // if (xBenefitPos < 551) {
+        //   xBenefitPos = -100;
+        // }
+
+
+        //requestAnimationFrame(benefitUpdate);
+      }
+      // check for and handle edge condition
+
+      // check for benefit collision
+      var pusheen = {
+        x: x,
+        y: y,
+        width: 120,
+        height: 85
+      }
+      var cheetos = {
+        x: xBenefitPos,
+        y: yBenefitPos,
+        width: 80,
+        height: 100
+      }
+
+      if (pusheen.x < cheetos.x + cheetos.width &&
+        pusheen.x + pusheen.width > cheetos.x &&
+        pusheen.y < cheetos.y + cheetos.height &&
+        pusheen.height + pusheen.y > cheetos.y) {
+        // collision detected!
+        score + 1;
+        console.log("you got a point!");
+      }
+
+      // filling in the values =>
+
+      if (5 < 30 &&
+        55 > 20 &&
+        5 < 20 &&
+        55 > 10) {
+        // collision detected!
+      }
+      // draw text (lives and score)
+
+
+//check for harm collision
+      var pusheen = {
+        x: x,
+        y: y,
+        width: 120,
+        height: 85
+      }
+      var dog = {
+        x: xHarmPos,
+        y: yHarmPos,
+        width: 100,
+        height: 85
+      }
+
+      if (pusheen.x < dog.x + dog.width &&
+        pusheen.x + pusheen.width > dog.x &&
+        pusheen.y < dog.y + dog.height &&
+        pusheen.height + pusheen.y > dog.y) {
+        // collision detected!
+        livesRemaining - 1;
+        
+        console.log("you lost a life!");
+      }
+
+      // filling in the values =>
+
+      if (5 < 30 &&
+        55 > 20 &&
+        5 < 20 &&
+        55 > 10) {
+        // collision detected!
+      }
+      // draw text (lives and score)
+
+      //  if the game has not been paused, 
+      if (!paused) {
+        requestAnimationFrame(animate);
+      }
+
+      //animate();
+
+    }
+
+    animate();
+
+    //window.addEventListener("keydown", false);
+    //   var deltaY = y
+    // function moveSomething(e) {
+    //     switch(e.keyCode) {
+    //         case 38:
+    //             // up key pressed
+    //             deltaY -= 2;
+    //             break;
+
+    //         case 40:
+    //             // down key pressed
+    //             deltaY += 2;
+    //             break;  
+    //     }   
+    // }   
+
+    //ctx.drawImage();
+
+
+
+
+    window.addEventListener("keydown", function(e) {
+      if (e.keyCode == 38) // up arrow
+      {
+        y -= 8;
+
+        // your action here, for example
+        // $('#pusheen').animate({
+        //   up: "-=2"
+        // });
+      }
+      else if (e.keyCode == 40) // down arrow
+      {
+        // your action here, for example
+        // $('#pusheen').animate({
+        //   down: "+=2"
+        // });
+        y += 8;
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>
